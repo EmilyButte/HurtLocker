@@ -1,19 +1,18 @@
 package butte.emily.hurtlocker;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static java.nio.file.Files.readAllBytes;
-import static java.nio.file.Paths.get;
+import org.apache.commons.io.IOUtils;
+import java.io.IOException;
 
 public class Main {
 
     public String readRawDataToString() throws Exception{
-        Path path = Paths.get(ClassLoader.getSystemResource("RawData.txt").toURI());
-        return new String(readAllBytes(get(path.toUri())));
+        ClassLoader classLoader = getClass().getClassLoader();
+        String result = IOUtils.toString(classLoader.getResourceAsStream("RawData.txt"));
+        return result;
     }
 
     public static void main(String[] args) throws Exception{
-
+        String output = (new Main()).readRawDataToString();
+        System.out.println(output);
     }
 }
