@@ -1,3 +1,5 @@
+package butte.emily.hurtlocker;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
