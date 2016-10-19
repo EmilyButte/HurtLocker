@@ -10,8 +10,7 @@ import java.util.Map;
 public class Inventory {
 
     //foodList holds the food objects and each objects associated key:value pairs
-    ArrayList<Food> foodList = new ArrayList<>();
-    ArrayList<String> foodNames = new ArrayList<>();
+    public static ArrayList<Food> foodList = new ArrayList<>();
 
     //Each map below holds a key:value pair of FOOD objects - Ex. key = Milk, value = price
     Map<String, Integer> mapOfMilkPrices = new HashMap<>();
@@ -19,39 +18,43 @@ public class Inventory {
     Map<String, Integer> mapOfCookiesPrices = new HashMap<>();
     Map<String, Integer> mapOfApplesPrices = new HashMap<>();
 
-    ArrayList<Map<String, Integer>> maps = new ArrayList<>();
+    Map<String, Map<String, Integer>> mapList = new HashMap<>();
 
     //The following 4 methods iterate through the foodList ArrayList in the same way
     public void populateMap(Food food, Map<String, Integer> map){
+        String price = food.getPrice();
         //if the item is working on is already found it the MAP, it just adds +1 to the count
-                if(map.containsKey(food.getName())){
-                    map.put(food.getPrice(), map.get(food.getPrice()) +1);
+                if(map.containsKey(price)){
+                    map.put(price, map.get(price) +1);
                 } else {
                     //if the item is not found to already exist in the MAP, it is added.
-                    map.put(food.getPrice(), 1);
+                    map.put(price, 1);
                 }
             }
+
+    public void fixFood(Food food) throws NullValueException {
+        food.replaceAllFoodObjectNames(food.getName());
+        food.checkPrice();
+    }
 
 
     public void inventoryPrices() throws NullValueException {
         for (Food food : foodList) {
             try {
-                food.replaceAllFoodObjectNames();
-                food.checkPrice();
-
+                fixFood(food);
                 if (!food.getPrice().equals(null)) {
 
                     switch (food.getName()) {
-                        case "milk":
+                        case "Milk":
                             populateMap(food, mapOfMilkPrices);
                             break;
-                        case "bread":
+                        case "Bread":
                             populateMap(food, mapOfBreadPrices);
                             break;
-                        case "cookies":
+                        case "Cookies":
                             populateMap(food, mapOfCookiesPrices );
                             break;
-                        case "apples":
+                        case "Apples":
                             populateMap(food, mapOfApplesPrices);
                     }
                 }
@@ -62,19 +65,13 @@ public class Inventory {
         }
     }
 
-    public void populateFoodNames(){
-        foodNames.add("Milk");
-        foodNames.add("Cookies");
-        foodNames.add("Apples");
-        foodNames.add("Bread");
+    public void populateMapList(){
+        mapList.put("Milk", mapOfMilkPrices);
+        mapList.put("Cookies", mapOfCookiesPrices);
+        mapList.put("Apples", mapOfApplesPrices);
+        mapList.put("Bread", mapOfBreadPrices);
     }
 
-    public void populateMaps(){
-        maps.add(mapOfMilkPrices);
-        maps.add(mapOfCookiesPrices);
-        maps.add(mapOfApplesPrices);
-        maps.add(mapOfBreadPrices);
-    }
 
     public String createInventoryItemFormat(String name){
         StringBuilder firstLine = new StringBuilder("name:      ");
@@ -82,7 +79,8 @@ public class Inventory {
         firstLine.append("            ");
         firstLine.append("seen:     ");
         firstLine.append(Food.getCounter(name));
-        firstLine.append("  times");
+        firstLine.append("  times\n");
+        firstLine.append(doubleLineFomat());
         return firstLine.toString();
     }
 
@@ -121,20 +119,16 @@ public class Inventory {
         errorLine.append("            ");
         errorLine.append("            ");
         errorLine.append("seen:     ");
-        errorLine.append(NullValueException.getCounter());
+        errorLine.append(NullValueException.counter);
         errorLine.append("  times");
         return errorLine.toString();
     }
 
     public void printInventory(){
-        populateFoodNames();
-        populateMaps();
-        for (String name: foodNames) {
+        populateMapList();
+        for (String name: mapList.keySet()) {
             System.out.println(createInventoryItemFormat(name));
-            for (Map map : maps) {
-                System.out.println(createPriceFormat(map));
-            }
-
+            System.out.println(createPriceFormat(mapList.get(name)));
             }
         System.out.println(printErrors());
         }

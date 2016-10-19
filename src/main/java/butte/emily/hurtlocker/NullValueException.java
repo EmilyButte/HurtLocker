@@ -11,11 +11,4 @@ public class NullValueException extends Exception {
         super(message);
     }
 
-    public static int getCounter() {
-        return counter;
-    }
-
-    //    public static String formattedErrorOutput(){
-//        return "Errors\t\t\t\tseen: "+counter+" times";
-//    }
 }

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class Filter {
     int exceptions = 0;
 
-    ArrayList<String[]> foodData = new ArrayList<>(); //arrayList of String arrays
+    public ArrayList<String[]> foodData = new ArrayList<>(); //arrayList of String arrays
     Inventory foodOrganizer = new Inventory();
 
     public void runFilter(String output) throws NullValueException {
@@ -29,7 +29,7 @@ public class Filter {
     }
 
     public String valueStringPattern(String foodObject) {
-        Pattern p = Pattern.compile("((?<=[:])\\w+[^\\d\\W])");
+        Pattern p = Pattern.compile("(?<=[:])\\w+");
         Matcher m = p.matcher(foodObject);
         while (m.find()) {
             return m.group();
@@ -72,7 +72,7 @@ public class Filter {
     // position in the foodList arrayList, ultimately assigning the Key;value pairs to their corresponding object
     public ArrayList createFoodList() {
         for (String[] foodObject : foodData) {
-            String name = valueDatePattern(foodObject[0]);
+            String name = valueStringPattern(foodObject[0]);
             String price = valuePricePattern(foodObject[1]);
             String expiration = valueDatePattern(foodObject[2]);
             String type = valueStringPattern(foodObject[3]);

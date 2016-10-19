@@ -37,98 +37,99 @@ public class Food {
         return price;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public String getExpiration() {
-        return expiration;
-    }
-
-
 
     // The following 4 methods are used to identify patterns that match the variations in which the
     // MILK, BREAD, COOKIES and APPLES objects are identified
-    public void replaceMilkValuePattern(String regex) {
+
+
+    public String replaceMilkValuePattern(String foodName) {
         Pattern p = Pattern.compile("(?i)^m\\w+");
-        Matcher m = p.matcher(regex);
+        Matcher m = p.matcher(foodName);
         if(m.find()){
-            name = "milk";
+            name = "Milk";
             // milkCounter keeps track the number of occurences of the MILK object
             milkCounter++;
+            return name;
         }
+        return null;
     }
 
-    public void replaceCookiesValuePattern(String regex) {
+    public String replaceCookiesValuePattern(String foodName) {
         Pattern p = Pattern.compile("(?i)^c\\w+");
-        Matcher m = p.matcher(regex);
+        Matcher m = p.matcher(foodName);
         if(m.find()){
-            name = "cookie";
+            name = "Cookies";
             cookieCounter++;
+            return name;
         }
+        return null;
     }
 
-    public void replaceBreadValuePattern(String regex) {
+    public String replaceBreadValuePattern(String foodName) {
         Pattern p = Pattern.compile("(?i)^b\\w+");
-        Matcher m = p.matcher(regex);
+        Matcher m = p.matcher(foodName);
         if(m.find()){
-            name = "bread";
+            name = "Bread";
             breadCounter++;
+            return name;
         }
+        return null;
     }
 
-    public void replaceApplesValuePattern(String regex) {
+    public String replaceApplesValuePattern(String foodName) {
         Pattern p = Pattern.compile("(?i)^a\\w+");
-        Matcher m = p.matcher(regex);
+        Matcher m = p.matcher(foodName);
         if(m.find()){
-            name = "apples";
+            name = "Apples";
             appleCounter++;
+            return name;
         }
+        return null;
     }
 
     public static int getCounter(String name) {
         int temp = 0;
         switch (name) {
-            case "milk":
+            case "Milk":
                 temp = milkCounter;
                 break;
-            case "bread":
+            case "Bread":
                 temp = breadCounter;
                 break;
-            case "cookies":
+            case "Cookies":
                 temp = cookieCounter;
                 break;
-            case "apples":
+            case "Apples":
                 temp=appleCounter;
         }
         return temp;
     }
 
     // This method calls the individual replace methods from above and throws an exception if the name = null
-    public void replaceAllFoodObjectNames() throws NullValueException {
-        if (name.equals(null)) {
+    public void replaceAllFoodObjectNames(String foodName) throws NullValueException {
+        if (foodName == null) {
             throw new NullValueException("Name value is null");
         }
-        replaceMilkValuePattern(name);
-        replaceCookiesValuePattern(name);
-        replaceApplesValuePattern(name);
-        replaceBreadValuePattern(name);
+        replaceMilkValuePattern(foodName);
+        replaceCookiesValuePattern(foodName);
+        replaceApplesValuePattern(foodName);
+        replaceBreadValuePattern(foodName);
     }
 
     //This method throws an exception if the price value is null
     public void checkPrice() throws NullValueException {
-        if(price.equals(null)){
+        if(price == null){
             switch (name) {
-                case "milk":
+                case "Milk":
                     milkCounter--;
                     break;
-                case "bread":
+                case "Bread":
                    breadCounter--;
                     break;
-                case "cookies":
+                case "Cookies":
                     cookieCounter--;
                     break;
-                case "apples":
+                case "Apples":
                     appleCounter--;
             }
             throw new NullValueException("Null Value");
