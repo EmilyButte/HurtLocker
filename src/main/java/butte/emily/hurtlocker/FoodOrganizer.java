@@ -9,77 +9,83 @@ import java.util.Map;
  */
 public class FoodOrganizer {
 
-    Filter filter = new Filter();
-    FoodOrganizer foodOrganizer = new FoodOrganizer();
+    //foodList holds the food objects and each objects associated key:value pairs
+    ArrayList<Food> foodList = new ArrayList<>();
 
-    ArrayList<Food> foodList = new ArrayList<>(); // List lines
+    //Each map below holds a key:value pair of FOOD objects - Ex. key = Milk, value = price
+    Map<String, Integer> mapOfMilkPrices = new HashMap<>();
+    Map<String, Integer> mapOfBreadPrices = new HashMap<>();
+    Map<String, Integer> mapOfCookiesPrices = new HashMap<>();
+    Map<String, Integer> mapOfApplesPrices = new HashMap<>();
 
-    Map<String, Integer> mapOfMilkCost = new HashMap<>();
-    Map<String, Integer> mapOfBreadCost = new HashMap<>();
-    Map<String, Integer> mapOfCookiesCost = new HashMap<>();
-    Map<String, Integer> mapOfApplesCost = new HashMap<>();
-
-
-    public void makeMilkMap(){
+    //The following 4 methods iterate through the foodList ArrayList in the same way
+    public void createMilkMap(){
+        //for each loop is used to iterate through the food items in the foodList ArrayList
         for(Food food: foodList){
-                if(mapOfMilkCost.keySet().contains(food.getName())){
-                    mapOfMilkCost.put(food.getPrice(), mapOfMilkCost.get(food.getPrice()) +1);
+            //if the item is working on is already found it the MAP, it just adds +1 to the count
+                if(mapOfMilkPrices.keySet().contains(food.getName())){
+                    mapOfMilkPrices.put(food.getPrice(), mapOfMilkPrices.get(food.getPrice()) +1);
                 } else {
-                    mapOfMilkCost.put(food.getPrice(), 1);
+                    //if the item is not found to already exist in the MAP, it is added.
+                    mapOfMilkPrices.put(food.getPrice(), 1);
                 }
             }
         }
 
-    public void makeCookieMap(){
+    public void createCookieMap(){
         for(Food food: foodList){
-                if(mapOfCookiesCost.keySet().contains(food.getName())){
-                    mapOfCookiesCost.put(food.getPrice(), mapOfCookiesCost.get(food.getPrice()) +1);
+                if(mapOfCookiesPrices.keySet().contains(food.getName())){
+                    mapOfCookiesPrices.put(food.getPrice(), mapOfCookiesPrices.get(food.getPrice()) +1);
                 } else {
-                    mapOfCookiesCost.put(food.getPrice(), 1);
+                    mapOfCookiesPrices.put(food.getPrice(), 1);
                 }
             }
         }
 
-    public void makeBreadMap(){
+    public void createBreadMap(){
         for(Food food: foodList){
-                if(mapOfBreadCost.keySet().contains(food.getName())){
-                    mapOfBreadCost.put(food.getPrice(), mapOfBreadCost.get(food.getPrice()) +1);
+                if(mapOfBreadPrices.keySet().contains(food.getName())){
+                    mapOfBreadPrices.put(food.getPrice(), mapOfBreadPrices.get(food.getPrice()) +1);
                 } else {
-                    mapOfBreadCost.put(food.getPrice(), 1);
+                    mapOfBreadPrices.put(food.getPrice(), 1);
                 }
             }
         }
 
-    public void makeApplesMap(){
+    public void createApplesMap(){
         for(Food food: foodList){
-                if(mapOfApplesCost.keySet().contains(food.getName())){
-                    mapOfApplesCost.put(food.getPrice(), mapOfApplesCost.get(food.getPrice()) +1);
+                if(mapOfApplesPrices.keySet().contains(food.getName())){
+                    mapOfApplesPrices.put(food.getPrice(), mapOfApplesPrices.get(food.getPrice()) +1);
+                    //if the FOOD object  is contained in the foodList, then put it into the hashmap as String/Integer pairs
+                    // of the price: # occurances (found by adding 1 to the array index)
                 } else {
-                    mapOfApplesCost.put(food.getPrice(), 1);
+                    mapOfApplesPrices.put(food.getPrice(), 1);
                 }
             }
         }
+
+
 
     public void organizeFood() throws NullValueException {
         for (Food food : foodList) {
             try {
-                food.replaceAllNames();
+                food.replaceAllFoodObjectNames();
                 food.checkPrice();
 
                 if (!food.getPrice().equals(null)) {
 
                     switch (food.getName()) {
                         case "milk":
-                            makeMilkMap();
+                            createMilkMap();
                             break;
                         case "bread":
-                            makeBreadMap();
+                            createBreadMap();
                             break;
                         case "cookies":
-                            makeCookieMap();
+                            createCookieMap();
                             break;
                         case "apples":
-                            makeApplesMap();
+                            createApplesMap();
                             break;
                     }
                 }

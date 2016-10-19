@@ -8,17 +8,19 @@ import java.util.regex.Pattern;
  */
 public class Food {
 
+    //Given data set is a list of FOOD items with associated NAMES, PRICE, TYPE, EXPIRATION, all of the String dataType
     String name;
     String price;
     String type;
     String expiration;
 
+    // Used to keep track of the number of occurences of each FOOD object
     public static int milkCounter = 0;
     public static int breadCounter = 0;
     public static int appleCounter = 0;
     public static int cookieCounter = 0;
 
-
+    //Constructor is constructed using the fields associated with the list of Food items
     public Food(String name, String price, String type, String expiration) {
         this.name = name;
         this.price = price;
@@ -26,6 +28,7 @@ public class Food {
         this.expiration = expiration;
     }
 
+    //Getters amd Setters can be established to get/set the fields
     public String getName() {
         return name;
     }
@@ -42,11 +45,16 @@ public class Food {
         return expiration;
     }
 
+
+
+    // The following 4 methods are used to identify patterns that match the variations in which the
+    // MILK, BREAD, COOKIES and APPLES objects are identified
     public void replaceMilkValuePattern(String regex) {
         Pattern p = Pattern.compile("(?i)^m\\w+");
         Matcher m = p.matcher(regex);
         if(m.find()){
-            this.name = "milk";
+            name = "milk";
+            // milkCounter keeps track the number of occurences of the MILK object
             milkCounter++;
         }
     }
@@ -55,7 +63,7 @@ public class Food {
         Pattern p = Pattern.compile("(?i)^c\\w+");
         Matcher m = p.matcher(regex);
         if(m.find()){
-            this.name = "cookie";
+            name = "cookie";
             cookieCounter++;
         }
     }
@@ -64,7 +72,7 @@ public class Food {
         Pattern p = Pattern.compile("(?i)^b\\w+");
         Matcher m = p.matcher(regex);
         if(m.find()){
-            this.name = "bread";
+            name = "bread";
             breadCounter++;
         }
     }
@@ -73,14 +81,15 @@ public class Food {
         Pattern p = Pattern.compile("(?i)^a\\w+");
         Matcher m = p.matcher(regex);
         if(m.find()){
-            this.name = "apples";
+            name = "apples";
             appleCounter++;
         }
     }
 
-    public void replaceAllNames() throws NullValueException {
-        if (this.name.equals(null)) {
-            throw new NullValueException("Null Value");
+    // This method calls the individual replace methods from above and throws an exception if the name = null
+    public void replaceAllFoodObjectNames() throws NullValueException {
+        if (name.equals(null)) {
+            throw new NullValueException("Name value is null");
         }
         replaceMilkValuePattern(name);
         replaceCookiesValuePattern(name);
@@ -88,8 +97,9 @@ public class Food {
         replaceBreadValuePattern(name);
     }
 
+    //This method throws an exception if the price value is null
     public void checkPrice() throws NullValueException {
-        if(this.price.equals(null)){
+        if(price.equals(null)){
             throw new NullValueException("Null Value");
         }
     }

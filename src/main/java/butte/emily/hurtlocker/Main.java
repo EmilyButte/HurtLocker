@@ -12,9 +12,10 @@ public class Main {
 
     public static void main(String[] args) throws Exception{
         String output = (new Main()).readRawDataToString();
-        //System.out.println(output);
 
         Filter filter = new Filter();
-        filter.runFilter(output);
+        output = filter.runFilter(output);
+
+        System.out.println(output);
     }
 }
