@@ -86,6 +86,24 @@ public class Food {
         }
     }
 
+    public static int getCounter(String name) {
+        int temp = 0;
+        switch (name) {
+            case "milk":
+                temp = milkCounter;
+                break;
+            case "bread":
+                temp = breadCounter;
+                break;
+            case "cookies":
+                temp = cookieCounter;
+                break;
+            case "apples":
+                temp=appleCounter;
+        }
+        return temp;
+    }
+
     // This method calls the individual replace methods from above and throws an exception if the name = null
     public void replaceAllFoodObjectNames() throws NullValueException {
         if (name.equals(null)) {
@@ -100,6 +118,19 @@ public class Food {
     //This method throws an exception if the price value is null
     public void checkPrice() throws NullValueException {
         if(price.equals(null)){
+            switch (name) {
+                case "milk":
+                    milkCounter--;
+                    break;
+                case "bread":
+                   breadCounter--;
+                    break;
+                case "cookies":
+                    cookieCounter--;
+                    break;
+                case "apples":
+                    appleCounter--;
+            }
             throw new NullValueException("Null Value");
         }
     }

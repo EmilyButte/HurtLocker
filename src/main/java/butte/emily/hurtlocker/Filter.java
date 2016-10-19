@@ -11,14 +11,13 @@ public class Filter {
     int exceptions = 0;
 
     ArrayList<String[]> foodData = new ArrayList<>(); //arrayList of String arrays
-    FoodOrganizer foodOrganizer = new FoodOrganizer();
+    Inventory foodOrganizer = new Inventory();
 
-    public String runFilter(String output) throws NullValueException {
+    public void runFilter(String output) throws NullValueException {
         createFoodDataList(output);
         createFoodList();
-        foodOrganizer.organizeFood();
-        foodOrganizer.printFood();
-        return output;
+        foodOrganizer.inventoryPrices();
+        foodOrganizer.printInventory();
     }
 
     public String[] splitByObjects(String output) {

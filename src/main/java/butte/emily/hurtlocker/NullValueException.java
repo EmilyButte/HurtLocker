@@ -9,10 +9,13 @@ public class NullValueException extends Exception {
 
     public NullValueException(String message){
         super(message);
-        counter++;
     }
 
-//    public static String formattedErrorOutput(){
+    public static int getCounter() {
+        return counter;
+    }
+
+    //    public static String formattedErrorOutput(){
 //        return "Errors\t\t\t\tseen: "+counter+" times";
 //    }
 }

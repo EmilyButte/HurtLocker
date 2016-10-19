@@ -14,8 +14,6 @@ public class Main {
         String output = (new Main()).readRawDataToString();
 
         Filter filter = new Filter();
-        output = filter.runFilter(output);
-
-        System.out.println(output);
+        filter.runFilter(output);
     }
 }
