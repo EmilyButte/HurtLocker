@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
  * Created by emilybutte on 10/17/16.
  */
 public class Filter {
-    int exceptions = 0;
 
     public ArrayList<String[]> foodData = new ArrayList<>(); //arrayList of String arrays
     Inventory foodOrganizer = new Inventory();
