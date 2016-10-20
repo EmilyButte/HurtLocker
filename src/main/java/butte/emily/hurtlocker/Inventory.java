@@ -2,6 +2,7 @@ package butte.emily.hurtlocker;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -18,7 +19,7 @@ public class Inventory {
     Map<String, Integer> mapOfCookiesPrices = new HashMap<>();
     Map<String, Integer> mapOfApplesPrices = new HashMap<>();
 
-    Map<String, Map<String, Integer>> mapList = new HashMap<>();
+    public static Map<String, Map<String, Integer>> mapList = new LinkedHashMap<>();
 
     //The following 4 methods iterate through the foodList ArrayList in the same way
     public void populateMap(Food food, Map<String, Integer> map){
@@ -67,16 +68,17 @@ public class Inventory {
 
     public void populateMapList(){
         mapList.put("Milk", mapOfMilkPrices);
+        mapList.put("Bread", mapOfBreadPrices);
         mapList.put("Cookies", mapOfCookiesPrices);
         mapList.put("Apples", mapOfApplesPrices);
-        mapList.put("Bread", mapOfBreadPrices);
+
     }
 
 
     public String createInventoryItemFormat(String name){
         StringBuilder firstLine = new StringBuilder("name:      ");
         firstLine.append(name);
-        firstLine.append("            ");
+        firstLine.append("                   ");
         firstLine.append("seen:     ");
         firstLine.append(Food.getCounter(name));
         firstLine.append("  times\n");
@@ -85,16 +87,16 @@ public class Inventory {
     }
 
     public String doubleLineFomat(){
-        StringBuilder lines = new StringBuilder("=============");
+        StringBuilder lines = new StringBuilder("==================");
         lines.append("               ");
-        lines.append("=============");
+        lines.append("==================");
         return lines.toString();
     }
 
     public String singleLineFomat(){
-        StringBuilder line = new StringBuilder("-------------");
+        StringBuilder line = new StringBuilder("------------------");
         line.append("               ");
-        line.append("-------------");
+        line.append("------------------");
         return line.toString();
     }
 
@@ -103,7 +105,7 @@ public class Inventory {
         for (String price : map.keySet()){
             StringBuilder priceLine = new StringBuilder("Price:      ");
             priceLine.append(price);
-            priceLine.append("            ");
+            priceLine.append("                  ");
             priceLine.append("seen:     ");
             priceLine.append(map.get(price));
             priceLine.append("  times\n");
@@ -116,9 +118,8 @@ public class Inventory {
 
     public String printErrors() {
         StringBuilder errorLine = new StringBuilder("Errors:      ");
-        errorLine.append("            ");
-        errorLine.append("            ");
-        errorLine.append("seen:     ");
+        errorLine.append("                     ");
+        errorLine.append("seen:      ");
         errorLine.append(NullValueException.counter);
         errorLine.append("  times");
         return errorLine.toString();
