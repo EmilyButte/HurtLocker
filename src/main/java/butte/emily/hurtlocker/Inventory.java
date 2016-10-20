@@ -119,7 +119,7 @@ public class Inventory {
     public String printErrors() {
         StringBuilder errorLine = new StringBuilder("Errors:      ");
         errorLine.append("                     ");
-        errorLine.append("seen:      ");
+        errorLine.append("seen:    ");
         errorLine.append(NullValueException.counter);
         errorLine.append("  times");
         return errorLine.toString();
