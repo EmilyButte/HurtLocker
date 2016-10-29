@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class Filter {
 
-    public ArrayList<String[]> foodData = new ArrayList<>(); //arrayList of String arrays
+    public ArrayList<String[]> foodData = new ArrayList<>();
     Inventory foodOrganizer = new Inventory();
 
     public void runFilter(String output) throws NullValueException {
@@ -54,21 +54,16 @@ public class Filter {
         return null;
     }
 
-    //Splits the input at the "##" into lines of Food Objects
-    //then splits the Food Objects into
+
     public ArrayList createFoodDataList(String output) {
-        String[] objects = splitByObjects(output); // = [naMe:Milk;price:3.23;type:Food;expiration:1/25/2016], ...}
+        String[] objects = splitByObjects(output);
         for (int i = 0; i < objects.length; i++) {
             String[] foodObject = splitIntoPairs(objects[i]);
-            // = [[naMe:Milk], [price:3.23], [type:Food], [expiration:1/25/2016], ...]
             foodData.add(foodObject);
-            //foodData is an array(list) of (string) arrays
         }
         return null;
     }
 
-    //iterates through the foodData(array of arrays, which is really an array FOOD objects) and assigns them to a
-    // position in the foodList arrayList, ultimately assigning the Key;value pairs to their corresponding object
     public ArrayList createFoodList() {
         for (String[] foodObject : foodData) {
             String name = valueStringPattern(foodObject[0]);
@@ -78,11 +73,6 @@ public class Filter {
 
             Food food = new Food(name, price, expiration, type);
             foodOrganizer.foodList.add(food);
-
-            //output is a "foodList" with String arrays containing...
-            // [Milk: price, exp date, type]
-            // [Apples: price, exp date, type]
-            // [Milk: price, exp date, type]...etc.
         }
         return null;
     }

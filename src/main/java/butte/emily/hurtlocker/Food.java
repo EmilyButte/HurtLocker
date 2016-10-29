@@ -8,19 +8,16 @@ import java.util.regex.Pattern;
  */
 public class Food {
 
-    //Given data set is a list of FOOD items with associated NAMES, PRICE, TYPE, EXPIRATION, all of the String dataType
     String name;
     String price;
     String type;
     String expiration;
 
-    // Used to keep track of the number of occurences of each FOOD object
     public static int milkCounter = 0;
     public static int breadCounter = 0;
     public static int appleCounter = 0;
     public static int cookieCounter = 0;
 
-    //Constructor is constructed using the fields associated with the list of Food items
     public Food(String name, String price, String type, String expiration) {
         this.name = name;
         this.price = price;
@@ -28,7 +25,7 @@ public class Food {
         this.expiration = expiration;
     }
 
-    //Getters amd Setters can be established to get/set the fields
+
     public String getName() {
         return name;
     }
@@ -38,16 +35,11 @@ public class Food {
     }
 
 
-    // The following 4 methods are used to identify patterns that match the variations in which the
-    // MILK, BREAD, COOKIES and APPLES objects are identified
-
-
     public String replaceMilkValuePattern(String foodName) {
         Pattern p = Pattern.compile("(?i)^m\\w+");
         Matcher m = p.matcher(foodName);
         if(m.find()){
             name = "Milk";
-            // milkCounter keeps track the number of occurences of the MILK object
             milkCounter++;
             return name;
         }
@@ -105,7 +97,6 @@ public class Food {
         return temp;
     }
 
-    // This method calls the individual replace methods from above and throws an exception if the name = null
     public void replaceAllFoodObjectNames(String foodName) throws NullValueException {
         if (foodName == null) {
             throw new NullValueException("Name value is null");
@@ -116,7 +107,6 @@ public class Food {
         replaceBreadValuePattern(foodName);
     }
 
-    //This method throws an exception if the price value is null
     public void checkPrice() throws NullValueException {
         if(price == null){
             switch (name) {
